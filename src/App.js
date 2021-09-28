@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { Menu } from "antd";
+import "./App.css";
+import React from "react";
+import "antd/dist/antd.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import MainPage from "./components/MainPage/MainPage";
+import StatsPage from "./components/StatsPage/StatsPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends React.Component {
+  state = {
+    current: "main",
+  };
+
+  handleClick = (e) => {
+    console.log("click ", e);
+    this.setState({ current: e.key });
+  };
+  render() {
+    const { current } = this.state;
+    return (
+      <Router>
+        <Menu
+          onClick={this.handleClick}
+          selectedKeys={[current]}
+          mode="horizontal"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <Menu.Item key="main">
+            <Link to="/">Personalized Data</Link>
+          </Menu.Item>
+          <Menu.Item key="stats">
+            <Link to="/all">All Data</Link>
+          </Menu.Item>
+        </Menu>
+        <div className="App">
+          <Switch>
+            <Route path="/all">
+              <StatsPage />
+            </Route>
+            <Route path="/">
+              <MainPage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

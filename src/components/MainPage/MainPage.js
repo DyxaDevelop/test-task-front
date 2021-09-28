@@ -15,9 +15,9 @@ export default class MainPage extends React.Component {
   };
 
   componentDidMount() {
-    const rand = URL.createObjectURL(new Blob([])).slice(-36).replace(/-/g, "");
+    // const rand = URL.createObjectURL(new Blob([])).slice(-36).replace(/-/g, "");
     apiService
-      .getPersonalizedData("d88cb6ede74c499ba6f99a9d944ef43d")
+      .getPersonalizedData("d88cb6ede74c499ba6f99a9d944ef43d") // Uncomment Add "rand" for generating new tokens/users in system
       .then((res) => {
         this.setState({
           price: res.price,
